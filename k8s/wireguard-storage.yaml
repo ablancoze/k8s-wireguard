@@ -1,0 +1,32 @@
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: wireguard-pv
+  namespace: wireguard
+  labels:
+    app.kubernetes.io/name: wireguard
+spec:
+  storageClassName: wireguard-manual
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/var/lib/wireguard"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: wireguard
+  name: pvc-wireguard
+  labels:
+    app.kubernetes.io/name: wireguard
+spec:
+  storageClassName: wireguard-manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Mi

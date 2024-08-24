@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wireguard-configmap
+  namespace: wireguard
+  labels:
+    app.kubernetes.io/name: wireguard
+data:
+  PUID: "1000"
+  PGID: "1000"
+  TZ: "Europe/Madrid"
+  PEERS: "1"
+  ALLOWEDIPS: "0.0.0.0/0, ::/0"
+  PEERDNS: "8.8.8.8"  
+  SERVERPORT: "31820"
+  # SERVERURL: "192.168.1.2"
+  # INTERNAL_SUBNET: "192.168.1.0"
+---
