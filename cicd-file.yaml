@@ -1,0 +1,51 @@
+cicd-version: 1.0.0   # allow us to select between diferent cicd version (in case of cicd upgrade)
+app-name: lockwire-server # aplication name
+app-version: 1.0.0 # app version
+app-component: "vpn"
+description: |
+  Deploy Lockwire VPN Server
+
+deploy:
+  k8s-cluster: cluster-a  # k8s cluster
+  namespace: lockwire-server # k8s namespace
+
+  units: 
+    - unitId: "deploy-namespace"
+      enable: true
+      deploy-dir: k8s/namespace
+      config:
+        ##NAMESPACE
+        namespace: "lockwire-server"
+
+    - unitId: "deploy-resources"
+      enable: false
+      deploy-dir: k8s
+      config:
+        ###NAMESPACE
+        namespace: "lockwire-server"
+
+        ###DEPLOYMENT
+        ##resources
+        #request
+        memory-request: "64Mi"
+        cpu-request: "10m"
+        #limits
+        memory-limit: "256Mi"
+        cpu-limit: "200m"
+        ##image
+        image: "linuxserver/wireguard:arm64v8-1.0.20210914"
+        ##enviroment
+        TZ: "Europe/Madrid"
+        
+        ###SECRETS
+        server_private_key: "aaaaaaaa"
+        server_public_key: "aaaaaaaa"
+        
+        ###VOLUMES
+        accessModes: "ReadWriteMany"
+        storage: "10Mi"
+
+
+    
+  
+  

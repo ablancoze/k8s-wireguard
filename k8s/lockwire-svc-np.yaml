@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    native.cicd/version: {cicd-version}
+    app.kubernetes.io/name: {app-name}
+    app.kubernetes.io/component: {app-component}
+    app.kubernetes.io/version: {app-version}
+  name: {app-name}
+  namespace: {namespace}
+spec:
+  type: NodePort
+  ports:
+  - port: 51820
+    protocol: UDP
+    targetPort: 51820
+    nodePort: 31820  # Puerto externo
+  selector:
+    app.kubernetes.io/name: {app-name}
+    app.kubernetes.io/component: {app-component}
+    app.kubernetes.io/version: {app-version}
